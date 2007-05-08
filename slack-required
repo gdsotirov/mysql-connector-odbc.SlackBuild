@@ -1,2 +1,2 @@
-unixODBC
-x11
+unixODBC >= 2.2.11
+x11 >= 6.9
