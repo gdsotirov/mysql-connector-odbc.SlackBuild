@@ -1,4 +1,4 @@
-libtool >= 1.5.22
+libtool >= 1.5.24
 mysql >= 5.0
 unixODBC >= 2.2.12
 zlib >= 1.2.3
