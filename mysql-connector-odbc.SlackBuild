@@ -11,9 +11,11 @@ if [ ! -d $TMP ]; then
 fi
 
 NAME=mysql-connector-odbc
-VERSION=3.51.17
-RELEASE=581
+VERSION=3.51.18
+VERSION_PATCH=18
+RELEASE=638
 BUILD=1
+
 if [ "x$RELEASE" != "x" ]; then
   PACK=$NAME-${VERSION}r${RELEASE}
 else
@@ -75,11 +77,14 @@ install -m 644 $CWD/$NAME.SlackBuild $PKG/usr/src/slackbuilds/$PACK
 install -m 644 $CWD/slack-desc       $PKG/usr/src/slackbuilds/$PACK
 install -m 644 $CWD/slack-required   $PKG/usr/src/slackbuilds/$PACK
 
-# Make symbolic link for the older version numbers used by OpenOffice.org and others
+# Make symbolic link for the older version numbers used by OpenOffice.org and
+# possibly others
 ( cd $PKG/usr/lib
   ln -s libmyodbc3-$VERSION.so libmyodbc3-3.51.14.so
   ln -s libmyodbc3-$VERSION.so libmyodbc3-3.51.15.so
-  ln -s libmyodbc3-$VERSION.so libmyodbc3-3.51.16.so )
+  ln -s libmyodbc3-$VERSION.so libmyodbc3-3.51.16.so
+  ln -s libmyodbc3-$VERSION.so libmyodbc3-3.51.17.so
+)
 
 # Remove unneded data in /usr/share. I don't want to set --datadir to
 # $PKG/usr/doc, because in future this dir can be used for other
