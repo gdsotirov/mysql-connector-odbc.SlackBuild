@@ -11,8 +11,8 @@ if [ ! -d $TMP ]; then
 fi
 
 NAME=mysql-connector-odbc
-VERSION=3.51.24
-RELEASE=1071
+VERSION=3.51.25
+RELEASE=1093
 BUILD=1
 
 if [ "x$RELEASE" != "x" ]; then
