@@ -1,0 +1,257 @@
+# Fix Qt includes
+
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupAssistText.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupAssistText.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupAssistText.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupAssistText.h	2010-09-04 11:44:51.000000000 +0300
+@@ -23,8 +23,8 @@
+ #ifndef MYODBCASSISTTEXT_H
+ #define MYODBCASSISTTEXT_H
+ 
+-#include <qtextbrowser.h>
+-#include <qevent.h>
++#include <Qt/qtextbrowser.h>
++#include <Qt/qevent.h>
+ 
+ class MYODBCSetupAssistText : public QTextBrowser
+ {
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupCheckBox.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupCheckBox.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupCheckBox.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupCheckBox.h	2010-09-04 11:45:53.000000000 +0300
+@@ -23,8 +23,8 @@
+ #ifndef MYODBCCHECKBOX_H
+ #define MYODBCCHECKBOX_H
+ 
+-#include <qcheckbox.h>
+-#include <qevent.h>
++#include <Qt/qcheckbox.h>
++#include <Qt/qevent.h>
+ 
+ 
+ #ifndef MYODBC_ADD_TOOLTIP
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupComboBox.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupComboBox.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupComboBox.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupComboBox.h	2010-09-04 11:46:14.000000000 +0300
+@@ -23,8 +23,8 @@
+ #ifndef MYODBCCOMBOBOX_H
+ #define MYODBCCOMBOBOX_H
+ 
+-#include <qcombobox.h>
+-#include <qevent.h>
++#include <Qt/qcombobox.h>
++#include <Qt/qevent.h>
+ 
+ class MYODBCSetupComboBox : public QComboBox
+ {
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceDialog.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceDialog.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceDialog.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceDialog.h	2010-09-04 11:47:29.000000000 +0300
+@@ -23,19 +23,19 @@
+ #ifndef MYODBCUTIL_DATASOURCEDIALOG_H
+ #define MYODBCUTIL_DATASOURCEDIALOG_H
+ 
+-#include <qapplication.h>
+-#include <qstring.h>
+-#include <qdialog.h>
+-#include <qlayout.h>
+-#include <qlabel.h>
+-#include <qpushbutton.h>
+-#include <qsplitter.h>
+-#include <qmessagebox.h>
+-#include <qtextbrowser.h>
+-#include <qtextedit.h>
+-#include <qtabwidget.h>
+-#include <qprocess.h>
+-#include <qtooltip.h>
++#include <Qt/qapplication.h>
++#include <Qt/qstring.h>
++#include <Qt/qdialog.h>
++#include <Qt/qlayout.h>
++#include <Qt/qlabel.h>
++#include <Qt/qpushbutton.h>
++#include <Qt/qsplitter.h>
++#include <Qt/qmessagebox.h>
++#include <Qt/qtextbrowser.h>
++#include <Qt/qtextedit.h>
++#include <Qt/qtabwidget.h>
++#include <Qt/qprocess.h>
++#include <Qt/qtooltip.h>
+ 
+ #include "MYODBCSetup.h"
+ #include "MYODBCSetupDataSourceTab1.h"
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab1.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab1.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab1.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab1.h	2010-09-04 11:48:12.000000000 +0300
+@@ -23,13 +23,13 @@
+ #ifndef MYODBCUTIL_DATASOURCETAB1_H
+ #define MYODBCUTIL_DATASOURCETAB1_H
+ 
+-#include <qobject.h>
+-#include <qstring.h>
+-#include <qlabel.h>
+-#include <qlineedit.h>
+-#include <qlayout.h>
+-#include <qmessagebox.h>
+-#include <qtooltip.h>
++#include <Qt/qobject.h>
++#include <Qt/qstring.h>
++#include <Qt/qlabel.h>
++#include <Qt/qlineedit.h>
++#include <Qt/qlayout.h>
++#include <Qt/qmessagebox.h>
++#include <Qt/qtooltip.h>
+ 
+ #include "MYODBCSetup.h"
+ #include "MYODBCSetupLineEdit.h"
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab2.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab2.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab2.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab2.h	2010-09-04 11:48:57.000000000 +0300
+@@ -23,12 +23,12 @@
+ #ifndef MYODBCUTIL_DATASOURCETAB2_H
+ #define MYODBCUTIL_DATASOURCETAB2_H
+ 
+-#include <qobject.h>
+-#include <qstring.h>
+-#include <qlabel.h>
+-#include <qlineedit.h>
+-#include <qlayout.h>
+-#include <qtooltip.h>
++#include <Qt/qobject.h>
++#include <Qt/qstring.h>
++#include <Qt/qlabel.h>
++#include <Qt/qlineedit.h>
++#include <Qt/qlayout.h>
++#include <Qt/qtooltip.h>
+ 
+ #include "MYODBCSetup.h"
+ #include "MYODBCSetupLineEdit.h"
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab3.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab3.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab3.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab3.h	2010-09-04 11:50:08.000000000 +0300
+@@ -23,7 +23,7 @@
+ #ifndef MYODBCUTIL_DATASOURCETAB3_H
+ #define MYODBCUTIL_DATASOURCETAB3_H
+ 
+-#include <qtabwidget.h>
++#include <Qt/qtabwidget.h>
+ 
+ #include "MYODBCSetupDataSourceTab3a.h"
+ #include "MYODBCSetupDataSourceTab3b.h"
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab3a.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab3a.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab3a.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab3a.h	2010-09-04 11:49:25.000000000 +0300
+@@ -23,11 +23,11 @@
+ #ifndef MYODBCUTIL_DATASOURCETAB3A_H
+ #define MYODBCUTIL_DATASOURCETAB3A_H
+ 
+-#include <qobject.h>
+-#include <qstring.h>
+-#include <qlayout.h>
+-#include <qmessagebox.h>
+-#include <qtooltip.h>
++#include <Qt/qobject.h>
++#include <Qt/qstring.h>
++#include <Qt/qlayout.h>
++#include <Qt/qmessagebox.h>
++#include <Qt/qtooltip.h>
+ 
+ #include "MYODBCSetupCheckBox.h"
+ 
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab3b.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab3b.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab3b.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab3b.h	2010-09-04 11:49:40.000000000 +0300
+@@ -23,11 +23,11 @@
+ #ifndef MYODBCUTIL_DATASOURCETAB3B_H
+ #define MYODBCUTIL_DATASOURCETAB3B_H
+ 
+-#include <qobject.h>
+-#include <qstring.h>
+-#include <qlayout.h>
+-#include <qmessagebox.h>
+-#include <qtooltip.h>
++#include <Qt/qobject.h>
++#include <Qt/qstring.h>
++#include <Qt/qlayout.h>
++#include <Qt/qmessagebox.h>
++#include <Qt/qtooltip.h>
+ 
+ #include "MYODBCSetupCheckBox.h"
+ 
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab3c.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab3c.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab3c.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab3c.h	2010-09-04 11:49:54.000000000 +0300
+@@ -23,10 +23,10 @@
+ #ifndef MYODBCUTIL_DATASOURCETAB3C_H
+ #define MYODBCUTIL_DATASOURCETAB3C_H
+ 
+-#include <qobject.h>
+-#include <qstring.h>
+-#include <qlayout.h>
+-#include <qtooltip.h>
++#include <Qt/qobject.h>
++#include <Qt/qstring.h>
++#include <Qt/qlayout.h>
++#include <Qt/qtooltip.h>
+ 
+ #include "MYODBCSetupCheckBox.h"
+ 
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab3d.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab3d.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab3d.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab3d.h	2010-09-04 11:50:29.000000000 +0300
+@@ -23,10 +23,10 @@
+ #ifndef MYODBCUTIL_DATASOURCETAB3D_H
+ #define MYODBCUTIL_DATASOURCETAB3D_H
+ 
+-#include <qobject.h>
+-#include <qstring.h>
+-#include <qlayout.h>
+-#include <qtooltip.h>
++#include <Qt/qobject.h>
++#include <Qt/qstring.h>
++#include <Qt/qlayout.h>
++#include <Qt/qtooltip.h>
+ 
+ #include "MYODBCSetupCheckBox.h"
+ 
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab3e.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab3e.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupDataSourceTab3e.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupDataSourceTab3e.h	2010-09-04 11:50:45.000000000 +0300
+@@ -23,10 +23,10 @@
+ #ifndef MYODBCUTIL_DATASOURCETAB3E_H
+ #define MYODBCUTIL_DATASOURCETAB3E_H
+ 
+-#include <qobject.h>
+-#include <qstring.h>
+-#include <qlayout.h>
+-#include <qtooltip.h>
++#include <Qt/qobject.h>
++#include <Qt/qstring.h>
++#include <Qt/qlayout.h>
++#include <Qt/qtooltip.h>
+ 
+ #include "MYODBCSetupCheckBox.h"
+ 
+diff -N -r -U 3 mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupLineEdit.h mysql-connector-odbc-5.1.7/setup/MYODBCSetupLineEdit.h
+--- mysql-connector-odbc-5.1.7-orig/setup/MYODBCSetupLineEdit.h	2010-08-23 18:16:11.000000000 +0300
++++ mysql-connector-odbc-5.1.7/setup/MYODBCSetupLineEdit.h	2010-09-04 11:48:32.000000000 +0300
+@@ -23,8 +23,8 @@
+ #ifndef MYODBCLINEEDIT_H
+ #define MYODBCLINEEDIT_H
+ 
+-#include <qlineedit.h>
+-#include <qevent.h>
++#include <Qt/qlineedit.h>
++#include <Qt/qevent.h>
+ 
+ class MYODBCSetupLineEdit : public QLineEdit
+ {
+--- mysql-connector-odbc-5.1.7/Makefile.in	2010-08-23 18:16:30.000000000 +0300
++++ /usr/src/tmp/mysql-connector-odbc-5.1.7/Makefile.in	2010-09-04 12:25:28.000000000 +0300
+@@ -287,7 +287,7 @@
+ 	scripts \
+ 	dltest
+ 
+-readmedir = $(pkgdatadir)
++readmedir = $(docdir)
+ readme_DATA = \
+ 	ChangeLog \
+ 	README \
