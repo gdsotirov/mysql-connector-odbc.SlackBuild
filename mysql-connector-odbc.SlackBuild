@@ -1,38 +1,43 @@
 #!/bin/sh
+#
 # Slackware build script for MySQL Connector/ODBC
 # Written by Georgi D. Sotirov <gdsotirov@dir.bg>
+# Visit SlackPack at http://sotirov-bg.net/slackpack/
+#
 
-. /etc/slack-package.conf
-
-CWD=`pwd`
-TMP=${TMP:-/tmp}
-if [ ! -d $TMP ]; then
-  mkdir -p $TMP
-fi
+. ../slack-package.conf
 
 NAME=mysql-connector-odbc
-VERSION=3.51.26
-RELEASE=1127
-BUILD=1
+VERSION=5.1.7
+BUILD=${BUILD:-1}
 
-if [ "x$RELEASE" != "x" ]; then
-  PACK=$NAME-${VERSION}r${RELEASE}
-else
-  PACK=$NAME-$VERSION
+TMP=${TMP:-/tmp}
+CWD=${CWD:-`pwd`}
+
+if [ ! -e $TMP ]; then
+  mkdir -p $TMP # location to build the source
+fi
+
+SRC=$TMP/$NAME-$VERSION
+if [ -e $SRC -a -d $SRC ]; then
+  echo "Source directory '$SRC' already exists! Plaese, move it or remove it."
+  exit 1
 fi
 
 PKG=$TMP/package-$NAME
-rm -rf $PKG
+if [ -e $PKG -a -d $PKG ]; then
+  echo "Package creation directory '$PKG' already exists! Please, move it or remove it."
+  exit 2
+fi
 mkdir -p $PKG
 
-SRC=$TMP/$PACK
-rm -rf $SRC
-( cd $TMP
-  tar xzvf $CWD/$PACK.tar.gz
-)
+# Extract the source
+cd $TMP
+tar -xvf $CWD/$NAME-$VERSION.tar.gz || exit 1
+cd $SRC fix_source
 
-cd $SRC
-fix_source
+# Apply patches
+patch -p1 -b -z.orig < $CWD/$NAME-$VERSION.diff
 
 # Configure
 CFLAGS=$SLKCFLAGS \
@@ -43,60 +48,46 @@ CXXFLAGS=$SLKCFLAGS \
             --sysconfdir=/etc \
             --localstatedir=/var \
             --mandir=/usr/man \
+	    --docdir=/usr/doc/$NAME-$VERSION \
             --enable-shared=yes \
             --enable-static=no \
-	    --enable-threads \
-	    --enable-myodbc3i \
-	    --enable-myodbc3m \
-	    --enable-gui \
+            --enable-gui \
             --with-x \
-            --with-unixODBC=/usr \
-            --with-odbc-ini=/etc/odbc.ini
+            --with-unixODBC \
+            --with-odbc-ini=/etc/odbc.ini || exit 2
 
 # Build and install
-make -j4 || exit 1
-make DESTDIR=$PKG install || exit 2
+make -j4 || exit 3
+make DESTDIR=$PKG install || exit 4
 
 # Prepare package
 bin_perms $PKG
 ( cd $PKG; strip_bin; strip_lib; strip_static )
 DOCFILES="$DOCFILES LICENSE* BUILD*"
-create_docs $PKG $PACK
-# Create the COPYING file
-cp $PKG/usr/doc/$PACK/LICENSE.gpl $PKG/usr/doc/$PACK/COPYING
+create_docs $PKG $NAME-$VERSION
+( cd $PKG/usr/doc/$NAME-$VERSION
+  cp LICENSE.gpl COPYING )
 
-# Install data
 install -m 755 -d $PKG/install
 install -m 644 $CWD/slack-desc     $PKG/install
 install -m 644 $CWD/slack-required $PKG/install
 
-# Include build information
-install -m 755 -d $PKG/usr/src/slackbuilds/$PACK
-install -m 644 $CWD/$NAME.SlackBuild $PKG/usr/src/slackbuilds/$PACK
-install -m 644 $CWD/slack-desc       $PKG/usr/src/slackbuilds/$PACK
-install -m 644 $CWD/slack-required   $PKG/usr/src/slackbuilds/$PACK
-
-# Make symbolic link for the older version number used by OpenOffice.org
-( cd $PKG/usr/lib
-  ln -s libmyodbc3-$VERSION.so libmyodbc3-3.51.14.so )
-
-# Remove unneded data in /usr/share. I don't want to set --datadir to
-# $PKG/usr/doc, because in future this dir can be used for other
-# things
-rm -rf $PKG/usr/share
+SBDIR=$PKG/usr/src/slackbuilds/$NAME-$VERSION
+install -m 755 -d $SBDIR
+install -m 644 $CWD/slack-desc          $SBDIR/slack-desc
+install -m 644 $CWD/slack-required      $SBDIR/slack-required
+install -m 644 $CWD/$NAME-$VERSION.diff $SBDIR/$NAME-$VERSION.diff
+install -m 644 $CWD/$NAME.SlackBuild    $SBDIR/$NAME.SlackBuild
 
 # Build package
-PKG_DIR=${PKG_DIR:-/usr/src/slackpack}
-PKGNAME=$PACK-$ARCH-$BUILD$MYIN
+cd $PKG
+PKGNAME=$NAME-$VERSION-$ARCH-$BUILD$MYIN
+makepkg -l y -c n -p $PKG_DIR/$PKGNAME.txz
+cd $PKG_DIR
+md5sum $PKGNAME.txz > $PKGNAME.txz.md5
+cat $PKG/install/slack-desc > $PKG_DIR/$PKGNAME.txt
 
-( cd $PKG
-  makepkg -l y -c n $PKG_DIR/$PKGNAME.tgz
-)
-( cd $PKG_DIR
-  md5sum $PKGNAME.tgz > $PKGNAME.tgz.md5
-  cat $PKG/install/slack-desc > $PKG_DIR/$PKGNAME.txt
-)
-
+# Clean up (optionally)
 if [ "$1" == "--cleanup" ]; then
   rm -rf $SRC
   rm -rf $PKG
