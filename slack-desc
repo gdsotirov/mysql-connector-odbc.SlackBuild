@@ -1,11 +1,11 @@
 mysql-connector-odbc: MySQL Connector/ODBC (A MySQL ODBC Driver)
 mysql-connector-odbc:
-mysql-connector-odbc: MySQL Connector/ODBC allows you to connect to a MySQL
-mysql-connector-odbc: database server using the ODBC database API on all
-mysql-connector-odbc: Microsoft Windows and most Unix platforms, including
-mysql-connector-odbc: through such applications and programming environments
-mysql-connector-odbc: such as Microsoft Office, OpenOffice.org, Borland
-mysql-connector-odbc: Delphi, etc.
+mysql-connector-odbc: MySQL Connector/ODBC is a standardized database driver
+mysql-connector-odbc: for Windows, Linux, Mac OS X, and Unix platforms.  It
+mysql-connector-odbc: allows you to connect to a MySQL database server using
+mysql-connector-odbc: the ODBC database API on all Microsoft Windows and most
+mysql-connector-odbc: Unix platforms, including through such applications
+mysql-connector-odbc: and programming environments as Microsoft Office,
+mysql-connector-odbc: OpenOffice.org, Borland Delphi, etc.
 mysql-connector-odbc:
 mysql-connector-odbc: Packaged by Georgi D. Sotirov <gdsotirov@dir.bg>
-mysql-connector-odbc:
