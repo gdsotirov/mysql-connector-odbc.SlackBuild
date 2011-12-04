@@ -1,14 +1,31 @@
 #!/bin/sh
 #
 # Slackware build script for MySQL Connector/ODBC
-# Written by Georgi D. Sotirov <gdsotirov@dir.bg>
+# Copyright (C) 2007-2008,2010-2011 Georgi D. Sotirov <gdsotirov@dir.bg>
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+#
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
+# $Id: mysql-connector-odbc.SlackBuild,v 1.16 2011/12/04 19:12:03 gsotirov Exp $
+#
 
-. ../slack-package.conf
+. ../../slack-package.conf
 
 NAME=mysql-connector-odbc
-VERSION=5.1.8
+VERSION=5.1.9
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
@@ -33,40 +50,43 @@ mkdir -p $PKG
 
 # Extract the source
 cd $TMP
-tar -xvf $CWD/$NAME-$VERSION.tar.gz || exit 1
+tar -xvf $CWD/$NAME-$VERSION.tar.gz || exit 3
 cd $SRC fix_source
-
-# Apply patches
-patch -p1 -b -z.orig < $CWD/$NAME-$VERSION.diff
 
 # Configure
 CFLAGS=$SLKCFLAGS \
 CXXFLAGS=$SLKCFLAGS \
-./configure --build=$ARCH-slackware-linux \
-            --host=$ARCH-slackware-linux \
-            --prefix=/usr \
-            --sysconfdir=/etc \
-            --localstatedir=/var \
-            --mandir=/usr/man \
-	    --docdir=/usr/doc/$NAME-$VERSION \
-            --enable-shared=yes \
-            --enable-static=no \
-            --enable-gui \
-            --with-x \
-            --with-unixODBC \
-            --with-odbc-ini=/etc/odbc.ini || exit 2
+cmake . -LA \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
+        -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
+        -DCMAKE_C_COMPILER=/usr/bin/gcc \
+        -DCMAKE_C_FLAGS="$SLKCFLAGS" \
+        -DCMAKE_MAKE_PROGRAM=/usr/bin/gmake \
+        -DCMAKE_INSTALL_PREFIX=/usr || exit 4
 
 # Build and install
-make -j4 || exit 3
-make DESTDIR=$PKG install || exit 4
+make -j4 VERBOSE=1 || exit 5
+make install DESTDIR=$PKG || exit 6
+
+# Remove unnecessary files
+rm -rf $PKG/usr/test
+rm -f $PKG/usr/README*
+rm -f $PKG/usr/INSTALL*
+rm -f $PKG/usr/ChangeLog
+rm -f $PKG/usr/COPYING
+rm -f $PKG/usr/License*
+
+# Correct libdir location
+if [ "$ARCH" = "x86_64" ]; then
+  ( cd $PKG/usr; mv lib lib${LIBDIRSUFFIX} )
+fi
 
 # Prepare package
 bin_perms $PKG
-( cd $PKG; strip_bin; strip_lib; strip_static )
-DOCFILES="$DOCFILES LICENSE* BUILD*"
+( cd $PKG; strip_bin; strip_lib )
+DOCFILES="$DOCFILES BUILD* License*"
 create_docs $PKG $NAME-$VERSION
-( cd $PKG/usr/doc/$NAME-$VERSION
-  cp LICENSE.gpl COPYING )
 
 install -m 755 -d $PKG/install
 install -m 644 $CWD/slack-desc     $PKG/install
@@ -76,7 +96,6 @@ SBDIR=$PKG/usr/src/slackbuilds/$NAME-$VERSION
 install -m 755 -d $SBDIR
 install -m 644 $CWD/slack-desc          $SBDIR/slack-desc
 install -m 644 $CWD/slack-required      $SBDIR/slack-required
-install -m 644 $CWD/$NAME-$VERSION.diff $SBDIR/$NAME-$VERSION.diff
 install -m 644 $CWD/$NAME.SlackBuild    $SBDIR/$NAME.SlackBuild
 
 # Build package
