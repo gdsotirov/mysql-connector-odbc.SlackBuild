@@ -8,7 +8,7 @@
 . ../slack-package.conf
 
 NAME=mysql-connector-odbc
-VERSION=5.1.7
+VERSION=5.1.8
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
