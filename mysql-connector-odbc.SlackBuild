@@ -19,13 +19,13 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: mysql-connector-odbc.SlackBuild,v 1.16 2011/12/04 19:12:03 gsotirov Exp $
+# $Id: mysql-connector-odbc.SlackBuild,v 1.17 2012/02/18 13:45:30 gsotirov Exp $
 #
 
 . ../../slack-package.conf
 
 NAME=mysql-connector-odbc
-VERSION=5.1.9
+VERSION=5.1.10
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
@@ -35,7 +35,7 @@ if [ ! -e $TMP ]; then
   mkdir -p $TMP # location to build the source
 fi
 
-SRC=$TMP/$NAME-$VERSION
+SRC=$TMP/$NAME-$VERSION-src
 if [ -e $SRC -a -d $SRC ]; then
   echo "Source directory '$SRC' already exists! Plaese, move it or remove it."
   exit 1
@@ -50,7 +50,7 @@ mkdir -p $PKG
 
 # Extract the source
 cd $TMP
-tar -xvf $CWD/$NAME-$VERSION.tar.gz || exit 3
+tar -xvf $CWD/$NAME-$VERSION-src.tar.gz || exit 3
 cd $SRC fix_source
 
 # Configure
