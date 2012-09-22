@@ -2,7 +2,7 @@
 # Slackware build script for MySQL Connector/ODBC
 # Written by Georgi D. Sotirov <gdsotirov@dir.bg>
 
-. /etc/slack-package.conf
+. ../slack-package.conf
 
 CWD=`pwd`
 TMP=${TMP:-/tmp}
@@ -11,8 +11,8 @@ if [ ! -d $TMP ]; then
 fi
 
 NAME=mysql-connector-odbc
-VERSION=3.51.26
-RELEASE=1127
+VERSION=3.51.30
+RELEASE=
 BUILD=1
 
 if [ "x$RELEASE" != "x" ]; then
@@ -25,11 +25,10 @@ PKG=$TMP/package-$NAME
 rm -rf $PKG
 mkdir -p $PKG
 
-SRC=$TMP/$PACK
+SRC=$TMP/$PACK-src
 rm -rf $SRC
-( cd $TMP
-  tar xzvf $CWD/$PACK.tar.gz
-)
+cd $TMP
+tar -xvf $CWD/$PACK-src.tar.gz || exit 1
 
 cd $SRC
 fix_source
@@ -40,6 +39,7 @@ CXXFLAGS=$SLKCFLAGS \
 ./configure --build=$ARCH-slackware-linux \
             --host=$ARCH-slackware-linux \
             --prefix=/usr \
+            --libdir=/usr/lib${LIBDIRSUFFIX} \
             --sysconfdir=/etc \
             --localstatedir=/var \
             --mandir=/usr/man \
@@ -51,19 +51,17 @@ CXXFLAGS=$SLKCFLAGS \
 	    --enable-gui \
             --with-x \
             --with-unixODBC=/usr \
-            --with-odbc-ini=/etc/odbc.ini
+            --with-odbc-ini=/etc/odbc.ini || exit 2
 
 # Build and install
-make -j4 || exit 1
-make DESTDIR=$PKG install || exit 2
+make -j4 || exit 3
+make DESTDIR=$PKG install || exit 4
 
 # Prepare package
 bin_perms $PKG
 ( cd $PKG; strip_bin; strip_lib; strip_static )
-DOCFILES="$DOCFILES LICENSE* BUILD*"
+DOCFILES="$DOCFILES BUILD*"
 create_docs $PKG $PACK
-# Create the COPYING file
-cp $PKG/usr/doc/$PACK/LICENSE.gpl $PKG/usr/doc/$PACK/COPYING
 
 # Install data
 install -m 755 -d $PKG/install
