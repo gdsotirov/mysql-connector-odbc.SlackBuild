@@ -19,13 +19,13 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: mysql-connector-odbc.SlackBuild,v 1.17.2.2 2013/02/25 20:54:42 gsotirov Exp $
+# $Id: mysql-connector-odbc.SlackBuild,v 1.17.2.3 2014/04/01 19:26:49 gsotirov Exp $
 #
 
 . ../../slack-package.conf
 
 NAME=mysql-connector-odbc
-VERSION=5.1.12
+VERSION=5.1.13
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
@@ -54,8 +54,9 @@ tar -xvf $CWD/$NAME-$VERSION-src.tar.gz || exit 3
 cd $SRC fix_source
 
 # Configure
-CFLAGS=$SLKCFLAGS \
-CXXFLAGS=$SLKCFLAGS \
+CFLAGS="$SLKCFLAGS -lpthread" \
+CXXFLAGS="$SLKCFLAGS -lpthread" \
+MYSQL_LIB_DIR=/usr/lib \
 cmake . -LA \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
@@ -63,6 +64,7 @@ cmake . -LA \
         -DCMAKE_C_COMPILER=/usr/bin/gcc \
         -DCMAKE_C_FLAGS="$SLKCFLAGS" \
         -DCMAKE_MAKE_PROGRAM=/usr/bin/gmake \
+        -DMYSQLCLIENT_LIB_NAME=libmysqlclient_r.so \
         -DCMAKE_INSTALL_PREFIX=/usr || exit 4
 
 # Build and install
