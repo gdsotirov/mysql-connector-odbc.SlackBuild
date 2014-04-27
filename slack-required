@@ -1,5 +1,8 @@
-glibc-solibs >= 2.13
-libtool >= 2.4.2
+cxxlibs >= 6.0.17 | gcc-g++ >= 4.7.1
+gcc >= 4.7.1
+glibc-solibs >= 2.15
+libiodbc >= 3.52.8
 mysql >= 5.0
-unixODBC >= 2.3
-zlib >= 1.2.5
+openssl >= 1.0.1f | openssl-solibs >= 1.0.1f
+unixodbc >= 2.3
+zlib >= 1.2.6
