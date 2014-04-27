@@ -19,7 +19,7 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: mysql-connector-odbc.SlackBuild,v 1.17.2.3 2014/04/01 19:26:49 gsotirov Exp $
+# $Id: mysql-connector-odbc.SlackBuild,v 1.17.2.4 2014/04/27 12:07:50 gsotirov Exp $
 #
 
 . ../../slack-package.conf
@@ -60,9 +60,9 @@ MYSQL_LIB_DIR=/usr/lib \
 cmake . -LA \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
-        -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
+        -DCMAKE_CXX_FLAGS="$SLKCFLAGS -lpthread" \
         -DCMAKE_C_COMPILER=/usr/bin/gcc \
-        -DCMAKE_C_FLAGS="$SLKCFLAGS" \
+        -DCMAKE_C_FLAGS="$SLKCFLAGS -lpthread" \
         -DCMAKE_MAKE_PROGRAM=/usr/bin/gmake \
         -DMYSQLCLIENT_LIB_NAME=libmysqlclient_r.so \
         -DCMAKE_INSTALL_PREFIX=/usr || exit 4
