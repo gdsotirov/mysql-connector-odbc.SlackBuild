@@ -19,13 +19,13 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: mysql-connector-odbc.SlackBuild,v 1.22 2014/04/27 17:24:04 gsotirov Exp $
+# $Id: mysql-connector-odbc.SlackBuild,v 1.23 2014/07/28 20:29:53 gsotirov Exp $
 #
 
 . ../../slack-package.conf
 
 NAME=mysql-connector-odbc
-VERSION=5.2.6
+VERSION=5.2.7
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
