@@ -1,8 +1,8 @@
-cxxlibs >= 6.0.17 | gcc-g++ >= 4.7.1
-gcc >= 4.7.1
-glibc-solibs >= 2.15
+cxxlibs >= 6.0.18 | gcc-g++ >= 4.8.2
+gcc >= 4.8.2
+glibc-solibs >= 2.17
 libiodbc >= 3.52.8
 mysql >= 5.0
-openssl >= 1.0.1f | openssl-solibs >= 1.0.1f
-unixodbc >= 2.3
-zlib >= 1.2.6
+openssl >= 1.0.1h | openssl-solibs >= 1.0.1h
+unixodbc >= 2.3.2
+zlib >= 1.2.8
