@@ -19,7 +19,7 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: mysql-connector-odbc.SlackBuild,v 1.29 2018/02/07 14:00:38 gsotirov Exp $
+# $Id: mysql-connector-odbc.SlackBuild,v 1.30 2018/02/07 17:46:33 gsotirov Exp $
 #
 
 . ../../slack-package.conf
@@ -64,7 +64,7 @@ cmake . -LA \
         -DCMAKE_C_FLAGS="$SLKCFLAGS" \
         -DCMAKE_MAKE_PROGRAM=/usr/bin/gmake \
         -DCMAKE_INSTALL_PREFIX=/usr \
-        -DMYSQLCLIENT_STATIC_LINKING=ON || exit 4
+        -DMYSQLCLIENT_STATIC_LINKING=OFF || exit 4
 
 # Build and install
 make -j4 VERBOSE=1 || exit 5
