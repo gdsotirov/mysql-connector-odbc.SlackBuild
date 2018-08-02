@@ -12,6 +12,31 @@ diff -urNad mysql-connector-odbc-5.3.11-src-orig/configure.cmake mysql-connector
  
  # If finds the size of a type, set SIZEOF_<type> and HAVE_<type>
  FUNCTION(MY_CHECK_TYPE_SIZE type defbase)
+diff -urNad mysql-connector-odbc-5.3.11-src-orig/driver/handle.cc mysql-connector-odbc-5.3.11-src/driver/handle.cc
+--- mysql-connector-odbc-5.3.11-src-orig/driver/handle.cc	2018-07-22 00:14:15.000000000 +0300
++++ mysql-connector-odbc-5.3.11-src/driver/handle.cc	2018-08-02 13:51:15.196126559 +0300
+@@ -47,6 +47,10 @@
+ 
+ #include "driver.h"
+ 
++extern void init_alloc_root(PSI_memory_key key,
++                            MEM_ROOT *mem_root, size_t block_size,
++                            size_t pre_alloc_size);
++
+ #ifdef _UNIX_
+ /* variables for thread counter */
+ static myodbc_key_t myodbc_thread_counter_key;
+diff -urNad mysql-connector-odbc-5.3.11-src-orig/driver/utility.cc mysql-connector-odbc-5.3.11-src/driver/utility.cc
+--- mysql-connector-odbc-5.3.11-src-orig/driver/utility.cc	2018-07-22 00:14:15.000000000 +0300
++++ mysql-connector-odbc-5.3.11-src/driver/utility.cc	2018-08-02 13:51:27.222152077 +0300
+@@ -33,6 +33,7 @@
+ 
+ #include "driver.h"
+ #include "errmsg.h"
++#include "mysql/service_mysql_alloc.h"
+ #include <ctype.h>
+ 
+ 
 diff -urNad mysql-connector-odbc-5.3.11-src-orig/include/sys/my_base.h mysql-connector-odbc-5.3.11-src/include/sys/my_base.h
 --- mysql-connector-odbc-5.3.11-src-orig/include/sys/my_base.h	2018-07-22 00:14:15.000000000 +0300
 +++ mysql-connector-odbc-5.3.11-src/include/sys/my_base.h	2018-07-31 14:10:29.832969174 +0300
