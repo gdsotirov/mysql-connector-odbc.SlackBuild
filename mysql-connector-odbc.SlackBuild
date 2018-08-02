@@ -19,7 +19,7 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: mysql-connector-odbc.SlackBuild,v 1.31 2018/07/31 11:42:21 gsotirov Exp $
+# $Id: mysql-connector-odbc.SlackBuild,v 1.32 2018/08/02 11:17:55 gsotirov Exp $
 #
 
 . ../../slack-package.conf
@@ -78,10 +78,8 @@ make install DESTDIR=$PKG || exit 7
 # Remove unnecessary files
 rm -rf $PKG/usr/test
 rm -f $PKG/usr/README*
-rm -f $PKG/usr/INSTALL*
 rm -f $PKG/usr/ChangeLog
-rm -f $PKG/usr/COPYING
-rm -f $PKG/usr/License*
+rm -f $PKG/usr/LICENSE*
 
 # Correct libdir location
 if [ "$ARCH" = "x86_64" ]; then
@@ -91,8 +89,11 @@ fi
 # Prepare package
 bin_perms $PKG
 ( cd $PKG; strip_bin; strip_lib )
-DOCFILES="$DOCFILES BUILD* License*"
+DOCFILES="$DOCFILES LICENSE*"
 create_docs $PKG ${NAME}-${VERSION}
+( cd $PKG/usr/doc/${NAME}-${VERSION};
+  mv LICENSE.txt COPYING;
+  mv README.txt README )
 
 install -m 755 -d $PKG/install
 install -m 644 $CWD/slack-desc     $PKG/install/slack-desc
